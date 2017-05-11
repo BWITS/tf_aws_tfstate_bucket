@@ -20,9 +20,30 @@ Currently I use aws account alias name as part of bucket name, you should set po
 
 Update bucket postfix name in `variable.tf`
 
+### What is and is not replicated.
+
+[What Is and Is Not Replicated](http://docs.aws.amazon.com/AmazonS3/latest/dev/crr-what-is-isnot-replicated.html)
+
+Recommend to enable Amazon S3-Managed Encryption Keys (SSE-S3), but not customer-provided (SSE-C) or AWS KMS–managed encryption (SSE-KMS) keys. Because:
+
+>Objects created with server-side encryption using either customer-provided (SSE-C) or AWS KMS–managed encryption (SSE-KMS) keys are not replicated.
+
+
+Sample backend configuration
+
+```
+terraform init \
+-backend=true \
+-backend-config="bucket=tf-state" \
+-backend-config="key=terraform.tfstate" \
+-backend-config="region=eu-west-1" \
+-backend-config="acl=bucket-owner-full-control" \
+-backend-config="encrypt=1"
+```
+
 ### Import state 
 
-If the tfstate bucket exists, please use below command to import its state. 
+If the tfstate bucket exists, please use below command to import its state after you inited the backend.
 
     terraform import aws_s3_bucket.bucket <exist_bucket_name>
 
