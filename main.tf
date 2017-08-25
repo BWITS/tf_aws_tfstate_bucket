@@ -1,5 +1,10 @@
 provider "aws" {
-  region = "${var.source_region}"
+  version = "~> 0.1"
+  region  = "${var.source_region}"
+}
+
+provider "template" {
+  version = "~> 0.1"
 }
 
 data "aws_iam_account_alias" "current" {}
