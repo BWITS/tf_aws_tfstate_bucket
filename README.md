@@ -49,6 +49,7 @@ If the tfstate bucket exists, please use below command to import its state after
 
 ### Usage
 
+    terraform init
     terraform plan
     terraform apply
 
